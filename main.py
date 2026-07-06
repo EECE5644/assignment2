@@ -102,3 +102,28 @@ r2_base = r2_score(y_test_new, base_model.predict(X_test_new))
 print(f"Baseline Mean Absolute Error: {mae_base:.2f}")
 print(f"Baseline Mean Squared Error: {mse_base:.2f}")
 print(f"Baseline R-squared: {r2_base:.2f}")
+
+
+# ==================== 8. Interpret the results ====================
+coef_table = pd.Series(model.coef_, index=feature_cols).sort_values(ascending=False)
+print(f"Base monthly charge (intercept): ${model.intercept_:.2f}")
+print("Estimated $/month contribution of each service:")
+for name, coef in coef_table.items(): print(f"  {name}: {coef:+.2f} $/month")
+
+
+# ==================== 9. Predict a new customer ====================
+new_customer = pd.DataFrame([{
+    "PhoneService": 1,
+    "MultipleLines": 1,
+    "OnlineSecurity": 1,
+    "OnlineBackup": 0,
+    "DeviceProtection": 0,
+    "TechSupport": 1,
+    "StreamingTV": 1,
+    "StreamingMovies": 0,
+    "InternetService_Fiber optic": 1,
+    "InternetService_No": 0,
+}], columns=feature_cols)
+
+predicted_charge = model.predict(new_customer)[0]
+print(f"Predicted monthly charge for the new customer: ${predicted_charge:.2f}")
