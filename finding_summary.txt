@@ -1,0 +1,52 @@
+Base monthly charge (intercept): $24.95
+                       service   cost
+0  InternetService_Fiber optic  24.93
+1                 PhoneService  20.08
+2              StreamingMovies   9.99
+3                  StreamingTV   9.95
+4                  TechSupport   5.06
+5               OnlineSecurity   5.02
+6                MultipleLines   5.01
+7             DeviceProtection   5.01
+8                 OnlineBackup   4.97
+9           InternetService_No -25.07
+
+# Questions:
+
+Q1: What does the base plan cost before any add-ons? (the intercept)
+A1: The base plan cost before any add-ons is $24.95.
+
+Q2: How much does each individual add-on contribute to the monthly bill?
+A2: The contribution of each individual add-on to the monthly bill is as follows:
+    - InternetService_Fiber optic: $24.93
+    - PhoneService: $20.08
+    - StreamingMovies: $9.99
+    - StreamingTV: $9.95
+    - TechSupport: $5.06
+    - OnlineSecurity: $5.02
+    - MultipleLines: $5.01
+    - DeviceProtection: $5.01
+    - OnlineBackup: $4.97 
+    - InternetService_No: -$25.07
+
+Q3: Which add-on is the most expensive, and which is the cheapest?
+A3: The most expensive add-on is InternetService_Fiber optic at $24.93, and the cheapest add-on is OnlineBackup at $4.97.
+
+Q4: If a customer adds fiber internet plus both streaming services, how much should their bill rise?
+A4: The bill should be rised $24.93 (Fiber optic) + $9.99 (StreamingMovies) + $9.95 (StreamingTV) = $44.87. 
+
+Q5: Given a specific bundle (say, phone service , multiple lines, and tech support), what monthly charge
+should we expect?
+A5: The expected monthly charge is $24.95 (base) + $20.08 (PhoneService) + $5.01 (MultipleLines) + $5.06 (TechSupport) = $55.10.
+
+Q6: Is knowing which services a customer has meaningfully better than just knowing how many they
+have, for predicting the bill?
+A6: Yes, knowing which specific services a customer has is meaningfully better than just knowing how many they have for predicting the bill. We can see this by comparing the metrics of the multi-variable model and the baseline model.
+
+Q7: How accurate are our predictions on customers the model hasn't seen within a few dollars, or off by
+more?
+A7: Within a few dollars, the model's predictions are fairly accurate. The MAE and RMSE values indicate that the model's predictions are generally close to the actual monthly charges.
+
+Q8: Do the model's learned prices match Telco's actual price list, and are any coefficients surprising
+(negative, or larger/smaller than expected)?
+A8: Yes, the model's learned prices generally match Telco's actual price list. The negative coefficient for InternetService_No is normal since it indicates that not having internet service reduces the monthly charge.
