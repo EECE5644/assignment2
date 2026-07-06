@@ -11,7 +11,7 @@ def get_data_from_kaggle():
     os.rename(downloaded_path, "./telco.csv")
 
 
-# 0. Check if the dataset exists, if not download it from Kaggle
+# ==================== 0. Check if the dataset exists, if not download it from Kaggle ====================
 if not os.path.exists(r"./telco.csv"):
     print("download")
     get_data_from_kaggle()
@@ -19,21 +19,39 @@ if not os.path.exists(r"./telco.csv"):
 assert os.path.exists(r"./telco.csv"), "Dataset not found. Please download it from Kaggle."
 
 
-# 1. Load and inspect the data
+# ==================== 1. Load and inspect the data ====================
 data = pd.read_csv(r"./telco.csv")
 data = data.convert_dtypes()
 
-print(data.head())
+# print(data.head())
 # data.info()
 
-# 1.1 change `No internet service` to `No`.
+# ---------- 1.1 change `No internet service` to `No`.
 data.replace({ "No internet service": "No", "No phone service": "No"}, inplace=True)
 
-# 1.2 Convert Yes/No and Male/Female to boolean(integer).
+# ---------- 1.2 Convert Yes/No and Male/Female to boolean(integer).
 for col in data.columns:
     st = set(data[col].unique())
     if st == {"Yes", "No"}: data[col] = data[col].map({"Yes": 1, "No": 0})
     elif st == {"Male", "Female"}: data[col] = data[col].map({"Female": 0, "Male": 1})
 
 
-data.info()
+# data.info()
+
+
+# ==================== 2. Define the variables ====================
+# ---------- 2.1 One-hot encode the categorical variables.
+data = pd.get_dummies(data, columns=["InternetService"], drop_first=True)
+bool_cols = data.select_dtypes(include=["boolean"]).columns
+data[bool_cols] = data[bool_cols].astype("Int64")
+
+# ---------- 2.2 Define the features and target variable.
+feature_cols = [
+    "PhoneService", "MultipleLines", "OnlineSecurity", "OnlineBackup", "DeviceProtection",
+    "TechSupport", "StreamingTV", "StreamingMovies", "InternetService_Fiber optic", "InternetService_No"
+]
+features = data[feature_cols]
+target = data["MonthlyCharges"]
+
+# features.info()
+# target.info()
