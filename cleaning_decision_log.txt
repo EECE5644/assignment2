@@ -1,3 +1,4 @@
 1. We changed "No internet service" to Yes/No and also changed all 2 answer data (e.g. Yes or No, female/male) to 0/1 to remove redundancy
-2. I dropped customerID and gender because it doesn't affect to Monthly Charge. I also think Dependents, Parter, and Senior Citizen can be dropped, but just leave it for the case that those stuff are affected by discount by the government for target.
-3. We kept all service columns because they affect to target (Monthly Charge).
+2. We changed feature (X) clomun name to use lowercase and _ to be easily readable.
+3. We dropSped customerID and gender because it doesn't affect to Monthly Charge. I also think Dependents, Parter, and Senior Citizen can be dropped, but just leave it for the case that those stuff are affected by discount by the government for target.
+4. We kept all service columns because they affect to target (Monthly Charge).
